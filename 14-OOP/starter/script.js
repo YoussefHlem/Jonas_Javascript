@@ -201,41 +201,87 @@
 // tesla.brake();
 // tesla.accelerate();
 
-class Person {
-  constructor(fullName, birthYear) {
-    this.fullName = fullName;
-    this.birthYear = birthYear;
+// class Person {
+//   constructor(fullName, birthYear) {
+//     this.fullName = fullName;
+//     this.birthYear = birthYear;
+//   }
+
+//   calcAge() {
+//     console.log(2024 - this.birthYear);
+//   }
+
+//   greet() {
+//     console.log(`Hey ${this.fullName}`);
+//   }
+
+//   get age() {
+//     return 2024 - this.birthYear;
+//   }
+
+//   set fullName(name) {
+//     if (name.includes(' ')) this._fullName = name;
+//     else alert(`${name} is not a full name!`);
+//   }
+
+//   get fullName() {
+//     return this._fullName;
+//   }
+
+//   static hi() {
+//     console.log('Hi There 👋');
+//   }
+// }
+
+// class Student extends Person {
+//   constructor(fullName, birthYear, course) {
+//     super(fullName, birthYear);
+//     this.course = course;
+//   }
+// }
+
+// Example
+
+class Account {
+  // Public Fields
+  local = navigator.language;
+
+  // Private Fields
+  #movements = [];
+  #pin;
+
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.#pin = pin;
   }
 
-  calcAge() {
-    console.log(2024 - this.birthYear);
+  // Public Methods
+  deposit(val) {
+    this.#movements.push(val);
   }
 
-  greet() {
-    console.log(`Hey ${this.fullName}`);
+  withdraw(val) {
+    this.deposit(-val);
   }
 
-  get age() {
-    return 2024 - this.birthYear;
+  requestLoan(val) {
+    if (this.#approveLoan(val)) {
+      this.deposit(val);
+      console.log('Load approved');
+    }
   }
 
-  set fullName(name) {
-    if (name.includes(' ')) this._fullName = name;
-    else alert(`${name} is not a full name!`);
-  }
-
-  get fullName() {
-    return this._fullName;
-  }
-
-  static hi() {
-    console.log('Hi There 👋');
+  // Private Methods
+  #approveLoan(val) {
+    return true;
   }
 }
 
-class Student extends Person {
-  constructor(fullName, birthYear, course) {
-    super(fullName, birthYear);
-    this.course = course;
-  }
-}
+const acc1 = new Account('Jonas', 'EUR', 1111);
+
+acc1.deposit(250);
+acc1.withdraw(140);
+acc1.requestLoan(1000);
+
+console.log(acc1);
